@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import mapMaker.map.MapArea;
 
 public class MapMaker extends Application{
 	
@@ -41,13 +43,13 @@ public class MapMaker extends Application{
 						createMenuItem( "New",(e)->{}),
 						createMenuItem( "Save",(e)->{}),
 						new SeparatorMenuItem(),
-						createMenuItem( "Exit",(e)->{})
+						createMenuItem( "Exit",(e) -> Platform.exit())
 						),
 				new Menu("Help", null,
 						createMenuItem( "Credit",(e)->displayCredit()),
-						createMenuItem( "Info",(e)->{}),
+						createMenuItem( "Info",(e)->displayInfo()),
 						new SeparatorMenuItem(),
-						createMenuItem( "Help",(e)->{})
+						createMenuItem( "Help",(e)->displayHelp())
 						)
 				);
 		
@@ -69,6 +71,14 @@ public class MapMaker extends Application{
 
 	private void displayCredit() {
 		displayAlert("Credit", loadFile( CREDITS_PATH));
+	}
+	
+	private void displayInfo() {
+		displayAlert("Info", loadFile( CREDITS_PATH));
+	}
+	
+	private void displayHelp() {
+		displayAlert("Help", loadFile( CREDITS_PATH));
 	}
 
 	private String loadFile( String path) {

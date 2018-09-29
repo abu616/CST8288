@@ -13,7 +13,7 @@ public class MapArea extends Pane{
 	/**
 	 * instead of calling getChildren every time you can call directly the reference of it which is initialized in constructor
 	 */
-	private ObservableList< Node> children;
+	private ObservableList<Node> children;
 	/**
 	 * active shape that is currently being manipulated
 	 */
@@ -27,7 +27,7 @@ public class MapArea extends Pane{
 	 */
 	private ToolState tool;
 
-	public MapAreaSkeleton(){
+	public MapArea(){
 		super();
 		tool = ToolState.state();
 		children = this.getChildren();

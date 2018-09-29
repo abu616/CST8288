@@ -1,31 +1,38 @@
 package mapMaker.map;
 
-public enum ToolState {
-		NONE_SELECTED("None Selected"),
-		SELECT("Select"),
-		MOVE("Move"),
-		LINE("Line"),
-		TRIANGLE("Triangle"),
-		RECTANGLE("Rectangle"),
-		PENTAGON("Pentagon"),
-		HEXAGON("Hexagon"),
-		PATH("Path"),
-		ERASE("Erase"),
-		DOOR("Door");
+public class ToolState {
 
-	private String option;
-
-	private ToolState(String name) {
-		this.option = name;
+	private Tools tool = Tools.SELECTION;
+	int option = 0;
+	private static ToolState state = null;
+	
+	private ToolState() {}
+	public static ToolState getState() {
+		if (state == null) {
+			synchronized(ToolState.class) {
+				if (state == null) {
+					state = new ToolState();
+				}
+			}
+		}
+		
+		return state;
 	}
 
-	public String getValue() {
+	public Tools getTool() {
+		return tool;
+	}
+	
+	public int getOption() {
 		return option;
 	}
-
-	@Override
-	public String toString() {
-		return "Tool: " + this.option;
+	
+	public void setTool() {
+		this.tool = tool;
 	}
-
+	
+	public void setOption() {
+		this.option = option;
+	}
+	
 }
