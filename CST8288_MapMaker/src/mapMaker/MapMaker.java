@@ -22,11 +22,6 @@ import javafx.stage.Stage;
 import mapMaker.map.MapArea;
 
 public class MapMaker extends Application{
-	
-
-	public static final String INFO_PATH = "resources/icons/info.txt";
-	public static final String HELP_PATH = "resources/icons/help.txt";
-	public static final String CREDITS_PATH = "resources/icons/credits.txt";
 
 	@Override
 	public void init() throws Exception {
@@ -36,80 +31,29 @@ public class MapMaker extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		BorderPane root = new BorderPane();
+		BorderPane rootPane = new BorderPane();
 		
-		MenuBar menuBar = new MenuBar(
-				new Menu("File", null,
-						createMenuItem( "New",(e)->{}),
-						createMenuItem( "Save",(e)->{}),
-						new SeparatorMenuItem(),
-						createMenuItem( "Exit",(e) -> Platform.exit())
-						),
-				new Menu("Help", null,
-						createMenuItem( "Credit",(e)->displayCredit()),
-						createMenuItem( "Info",(e)->displayInfo()),
-						new SeparatorMenuItem(),
-						createMenuItem( "Help",(e)->displayHelp())
-						)
-				);
+
 		
 		MapArea map = new MapArea();
 		
-		root.setTop(menuBar);
-		root.setCenter( map);
+		rootPane.setTop(new MapMakerMenu());
+		rootPane.setCenter( map);
 		
-		Scene scene = new Scene(root, 800, 800);
+		Scene scene = new Scene(rootPane, 800, 800);
 		scene.getStylesheets().add(new File("resources/css/style.css").toURI().toString());
 		primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
 			if (e.getCode() == KeyCode.ESCAPE)
 				primaryStage.hide();
 		});
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Map Maker Skeleton");
+		primaryStage.setTitle("Map Maker 1.0");
 		primaryStage.show();
-	}
-
-	private void displayCredit() {
-		displayAlert("Credit", loadFile( CREDITS_PATH));
-	}
-	
-	private void displayInfo() {
-		displayAlert("Info", loadFile( CREDITS_PATH));
-	}
-	
-	private void displayHelp() {
-		displayAlert("Help", loadFile( CREDITS_PATH));
-	}
-
-	private String loadFile( String path) {
-		String message = "";
-		try {
-			message = Files.lines( Paths.get(path)).reduce("", (a,b)->a+System.lineSeparator()+b+System.lineSeparator());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return message;
-	}
-	
-	private void displayAlert( String title, String message) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle(title);
-		alert.setContentText(message);
-		alert.show();
 	}
 	
 	@Override
 	public void stop() throws Exception {
 		super.stop();
-	}
-	
-	private MenuItem createMenuItem( String name, EventHandler<ActionEvent> handler) {
-		Label icon = new Label();
-		icon.setId(name+"-icon");
-		MenuItem item = new MenuItem(name, icon);
-		item.setOnAction(handler);
-		item.setId(name);
-		return item;
 	}
 
 	public static void main(String[] args) {

@@ -5,8 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import mapMaker.map.shapes.PolyShape;
-// Potentially an enum?
-import mapMaker.map.ToolState.Tools;
 
 public class MapArea extends Pane{
 
@@ -29,7 +27,7 @@ public class MapArea extends Pane{
 
 	public MapArea(){
 		super();
-		tool = ToolState.state();
+		tool = ToolState.getState();
 		children = this.getChildren();
 		registerMouseEvents();
 	}
@@ -45,12 +43,12 @@ public class MapArea extends Pane{
 		startX = e.getX();
 		startY = e.getY();
 		switch( activeTool()){
-			case Door:
-			case Move:
-			case Path:
-			case Selection:
-			case Erase:
-			case Room:
+			case DOOR:
+			case MOVE:
+			case PATH:
+			case SELECTION:
+			case ERASE:
+			case ROOM:
 				//create new shape with number of given 
 				//add fill, stroke and strokeWidth as needed
 				//finally add active shape to children of this class
@@ -63,16 +61,16 @@ public class MapArea extends Pane{
 	private void dragClick( MouseEvent e){
 		e.consume();
 		switch( activeTool()){
-			case Door:
-			case Path:
-			case Erase:
-			case Selection:
-			case Move:
+			case DOOR:
+			case PATH:
+			case ERASE:
+			case SELECTION:
+			case MOVE:
 				//start only needs to be updated for move , what we discussed in class we with out the need of PolyShape
 				startX = e.getX();
 				startY = e.getY();
 				break;
-			case Room:
+			case ROOM:
 				//redraw the active shape if it is not null
 				break;
 			default:
@@ -83,12 +81,12 @@ public class MapArea extends Pane{
 	private void releaseClick( MouseEvent e){
 		e.consume();
 		switch( activeTool()){
-			case Door:
-			case Move:
-			case Path:
-			case Selection:
-			case Erase:
-			case Room:
+			case DOOR:
+			case MOVE:
+			case PATH:
+			case SELECTION:
+			case ERASE:
+			case ROOM:
 				break;
 			default:
 				throw new UnsupportedOperationException( "Release for Tool \"" + activeTool().name() + "\" is not implemneted");
@@ -101,7 +99,7 @@ public class MapArea extends Pane{
 	}
 
 	private Tools activeTool(){
-		return tool.tool();
+		return tool.getTool();
 	}
 }
 
