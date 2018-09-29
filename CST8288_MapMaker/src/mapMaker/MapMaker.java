@@ -1,20 +1,9 @@
 package mapMaker;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -29,15 +18,16 @@ public class MapMaker extends Application{
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start( Stage primaryStage) throws Exception {
 		
 		BorderPane rootPane = new BorderPane();
-		
-
-		
+		MapMakerTools toolBar = new MapMakerTools();
+			toolBar.setOrientation(Orientation.VERTICAL);
+			toolBar.setMinWidth(50);
 		MapArea map = new MapArea();
 		
 		rootPane.setTop(new MapMakerMenu());
+		rootPane.setLeft( toolBar);
 		rootPane.setCenter( map);
 		
 		Scene scene = new Scene(rootPane, 800, 800);
