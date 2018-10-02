@@ -6,7 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import mapMaker.map.shapes.PolyShape;
 
-public class MapArea extends Pane{
+public class MapArea extends Pane {
 
 	/**
 	 * instead of calling getChildren every time you can call directly the reference of it which is initialized in constructor
@@ -49,7 +49,7 @@ public class MapArea extends Pane{
 			case SELECTION:
 			case ERASE:
 			case ROOM:
-				//create new shape with number of given 
+				//create new shape with number of given points?
 				//add fill, stroke and strokeWidth as needed
 				//finally add active shape to children of this class
 				break;
@@ -72,6 +72,8 @@ public class MapArea extends Pane{
 				break;
 			case ROOM:
 				//redraw the active shape if it is not null
+				if(activeShape == null) {} 
+					//else ( redraw activeShape);
 				break;
 			default:
 				throw new UnsupportedOperationException( "Drag for Tool \"" + activeTool().name() + "\" is not implemneted");
