@@ -70,6 +70,7 @@ public class PolyShape extends Polygon{
 	 */
 	public void reDraw( double x1, double y1, double x2, double y2, boolean symmetrical){
 		//using radianShift to measure the drawing angle
+		angle = radianShift(x1, x2, y1, y2);
 		//if shape is symmetrical measure the distance between x1,y1 and x2,y2 and assign it to dx and dy
 		//if not dx is difference between x1 and x2 and dy is difference between y1 and y2
 		//calculate the center of your shape:
