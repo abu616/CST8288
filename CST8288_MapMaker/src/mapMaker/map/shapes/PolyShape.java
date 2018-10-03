@@ -26,6 +26,7 @@ public class PolyShape extends Polygon{
 		super();
 		POLY_POINTS = getPoints();
 		//Initialize sides
+		this.sides = sides; // << Not positive this is right
 	}
 
 	private void cacluatePoints(){
@@ -45,12 +46,12 @@ public class PolyShape extends Polygon{
 
 	public void registerControlPoints(){
 		//to register control points create an array of control points,
-		ControlPoint[] cPoints;
 		//have in mind every two points the polygon class getPoints() counts as one control point.
-		//loop through all points of polygon getPoints() index by index,
+		ControlPoint[] cPoints = new ControlPoint[sides];
 		
+		//loop through all points of polygon getPoints() index by index,
 		//again don't forget every 2 indices are considered one control point.
-
+		
 		//for every two indices manually add a ChangeListener to centerXProperty and centerYProperty
 		//of your control point which extends Circle.
 		

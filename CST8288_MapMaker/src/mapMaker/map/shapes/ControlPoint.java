@@ -6,7 +6,7 @@ import javafx.scene.shape.Circle;
 public class ControlPoint extends Circle {
 
 	public ControlPoint(double x, double y) {
-		super(x, y, 5);
+		super(x, y, 6);
 	}
 
 	public void move(Point2D vector) {

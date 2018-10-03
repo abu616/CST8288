@@ -1,5 +1,6 @@
 package mapMaker;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,6 +13,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class MapMakerMenu extends MenuBar {
 
@@ -23,11 +26,12 @@ public class MapMakerMenu extends MenuBar {
 		super.getMenus().addAll( getFileMenu(), getHelpMenu());
 	}
 
-	private static Menu getFileMenu() {
+	private Menu getFileMenu() {
 		Menu fileMenu = new Menu( "File");
 		fileMenu.getItems().addAll(
 						getMenuItem( "New", (e) -> {}),
 						getMenuItem( "Save", (e) -> {}),
+						getMenuItem( "Open-archive", (e) -> {} ), //loadMapFile()),
 						new SeparatorMenuItem(),
 						getMenuItem( "Exit", (e) -> Platform.exit()));
 		return fileMenu;
@@ -45,7 +49,7 @@ public class MapMakerMenu extends MenuBar {
 	
 	private static MenuItem getMenuItem( String name, EventHandler<ActionEvent> handler) {
 		Label icon = new Label();
-		icon.setId( name+"-icon");
+		icon.setId( name + "-icon");
 		MenuItem item = new MenuItem( name, icon);
 		item.setOnAction( handler);
 		item.setId( name);
@@ -53,7 +57,7 @@ public class MapMakerMenu extends MenuBar {
 	}
 	
 	private void displayAlert( String title, String message) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		Alert alert = new Alert( Alert.AlertType.INFORMATION);
 		alert.setTitle(title);
 		alert.setHeaderText("Map Maker");
 		alert.setContentText(message);
@@ -70,15 +74,33 @@ public class MapMakerMenu extends MenuBar {
 		return message;
 	}
 	
-	public void displayCredit() {
+	
+	// TODO functionality non-existent
+	private String loadMapFile( String path) {
+		String message = "";
+		FileChooser mapFileChooser = new FileChooser();
+		mapFileChooser.setTitle("Open archive");
+		mapFileChooser.getExtensionFilters().add(
+				new ExtensionFilter("Map Files","*.map"));
+		
+		
+		try {
+			message = Files.lines( Paths.get(path)).reduce("", (a,b)->a+System.lineSeparator()+b+System.lineSeparator());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return message;
+	}
+	
+	private void displayCredit() {
 		displayAlert("Credit", loadFile( CREDITS_PATH));
 	}
 	
-	public void displayInfo() {
+	private void displayInfo() {
 		displayAlert("Info", loadFile( INFO_PATH));
 	}
 	
-	public void displayHelp() {
+	private void displayHelp() {
 		displayAlert("Help", loadFile( HELP_PATH));
 	}
 	
