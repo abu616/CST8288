@@ -2,23 +2,16 @@ package mapMaker.map;
 
 public class ToolState {
 
+	private static final ToolState STATE = new ToolState();
 	private Tools tool = Tools.SELECTION;
 	int option = 0;
-	private static ToolState state = null;
 	
 	private ToolState() {}
-	public static ToolState getState() {
-		if (state == null) {
-			synchronized(ToolState.class) {
-				if (state == null) {
-					state = new ToolState();
-				}
-			}
-		}
-		
-		return state;
-	}
 
+	public final static ToolState getState() {
+		return STATE;
+	}
+	
 	public Tools getTool() {
 		return tool;
 	}
@@ -27,11 +20,11 @@ public class ToolState {
 		return option;
 	}
 	
-	public void setTool() {
+	public void setTool(Tools tool) {
 		this.tool = tool;
 	}
 	
-	public void setOption() {
+	public void setOption(int option) {
 		this.option = option;
 	}
 	

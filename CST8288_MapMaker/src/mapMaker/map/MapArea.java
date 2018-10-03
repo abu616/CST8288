@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import mapMaker.map.shapes.PolyShape;
 
 public class MapArea extends Pane {
@@ -49,9 +50,16 @@ public class MapArea extends Pane {
 			case SELECTION:
 			case ERASE:
 			case ROOM:
-				//create new shape with number of given points?
+				//create new shape with number of given points
 				//add fill, stroke and strokeWidth as needed
 				//finally add active shape to children of this class
+				int option = tool.getOption();
+				activeShape = new PolyShape(option);
+				activeShape.setStroke(Color.BLACK);
+				activeShape.setStrokeWidth(2.5);
+				activeShape.setFill(Color.RED);
+				children.add(activeShape);
+				
 				break;
 			default:
 				throw new UnsupportedOperationException( "Cursor for Tool \"" + activeTool().name() + "\" is not implemneted");
@@ -72,7 +80,10 @@ public class MapArea extends Pane {
 				break;
 			case ROOM:
 				//redraw the active shape if it is not null
-				if(activeShape == null) {} 
+				if(activeShape == null) {
+				} else {
+					activeShape.reDraw(x1, y1, x2, y2, symmetrical);
+				}
 					//else ( redraw activeShape);
 				break;
 			default:

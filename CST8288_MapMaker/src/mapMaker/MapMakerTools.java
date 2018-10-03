@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
+import mapMaker.map.ToolState;
 import mapMaker.map.Tools;
 
 public class MapMakerTools  extends ToolBar{
@@ -38,7 +39,10 @@ public class MapMakerTools  extends ToolBar{
 		menuButton.setId( name);
 		menuButton.setOnAction( handler);
 		menuButton.getItems().addAll(			
-			createMenuItem( "Line", (e) -> {}),
+			createMenuItem( "Line", (e) -> {
+				ToolState.getState().setTool(Tools.ROOM);
+				ToolState.getState().setOption(2);
+			}),
 			createMenuItem( "Triangle", (e) -> {}),
 			createMenuItem( "Rectangle", (e) -> {}),
 			createMenuItem( "Pentagon", (e) -> {}),
