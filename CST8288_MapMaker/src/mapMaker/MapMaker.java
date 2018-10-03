@@ -26,11 +26,13 @@ public class MapMaker extends Application{
 			toolBar.setMinWidth(50);
 		MapArea map = new MapArea();
 		
-		rootPane.setTop(new MapMakerMenu());
+		rootPane.setTop( new MapMakerMenu());
+		rootPane.setBottom( new StatusBar());
 		rootPane.setLeft( toolBar);
+		rootPane.setRight( new MapMakerRightDetail());
 		rootPane.setCenter( map);
 		
-		Scene scene = new Scene(rootPane, 800, 800);
+		Scene scene = new Scene(rootPane, 1000, 800);
 		scene.getStylesheets().add(new File("resources/css/style.css").toURI().toString());
 		primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
 			if (e.getCode() == KeyCode.ESCAPE)
