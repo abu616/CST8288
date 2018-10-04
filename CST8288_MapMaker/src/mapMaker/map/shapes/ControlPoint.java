@@ -1,17 +1,22 @@
 package mapMaker.map.shapes;
 
-import javafx.geometry.Point2D;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class ControlPoint extends Circle {
 
 	public ControlPoint(double x, double y) {
-		super(x, y, 6);
+		super(x, y, 5, Color.BLACK);
 	}
 
-	public void move(Point2D vector) {
-		super.setCenterX(super.getCenterX() + vector.getX());
-		super.setCenterY(super.getCenterY() + vector.getY());
+	public void addChangeListener( ChangeListener x, ChangeListener y){
+		centerXProperty().addListener( x);
+		centerYProperty().addListener( y);
 	}
-
+	
+	public void translate( double dx, double dy) {
+		centerXProperty().set(centerXProperty().get() + dx);
+		centerYProperty().set(centerYProperty().get() + dy);
+	}
 }

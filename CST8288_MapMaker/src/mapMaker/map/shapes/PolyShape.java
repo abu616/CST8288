@@ -45,17 +45,13 @@ public class PolyShape extends Polygon{
 	}
 
 	public void registerControlPoints(){
-		//to register control points create an array of control points,
-		//have in mind every two points the polygon class getPoints() counts as one control point.
-		ControlPoint[] cPoints = new ControlPoint[sides];
-		
-		//loop through all points of polygon getPoints() index by index,
-		//again don't forget every 2 indices are considered one control point.
-		
-		//for every two indices manually add a ChangeListener to centerXProperty and centerYProperty
-		//of your control point which extends Circle.
-		
-		//each ChangeListener will updated the corresponding index inside of the Polygon getPoints().
+		cPoints = new ControlPoint[ POLY_POINTS.size() / 2];
+		for ( int i = 0; i < POLY_POINTS.size(); i+=2) {
+			final int j = i;
+			cPoints[ i / 2] = new ControlPoint( POLY_POINTS.get( i), POLY_POINTS.get( i + 1));
+			cPoints[ i / 2].addChangeListener((value, oldV, newV) -> POLY_POINTS.set( j, newV),
+											  (value, oldV, newV) -> POLY_POINTS.set( j + 1, newV));
+		};
 	}
 
 	/**
@@ -73,12 +69,22 @@ public class PolyShape extends Polygon{
 		//using radianShift to measure the drawing angle
 		angle = radianShift(x1, x2, y1, y2);
 		//if shape is symmetrical measure the distance between x1,y1 and x2,y2 and assign it to dx and dy
+		if( PolyShape = symmetrical) {
+			
+		} else {
+			
+		}
 		//if not dx is difference between x1 and x2 and dy is difference between y1 and y2
 		//calculate the center of your shape:
 		//x1 is x1 plus half the difference between x1 and x2
 		//y1 is y1 plus half the difference between y1 and y2
 		//clear points
 		//call calculate
+	}
+	public void translate( double dx, double dy) {
+		for ( ControlPoint c : cPoints) {
+			c.translate(dx, dy);
+		}
 	}
 
 	public Node[] getControlPoints(){

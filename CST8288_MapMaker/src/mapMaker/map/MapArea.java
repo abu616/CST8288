@@ -50,15 +50,12 @@ public class MapArea extends Pane {
 			case SELECTION:
 			case ERASE:
 			case ROOM:
-				//create new shape with number of given points
-				//add fill, stroke and strokeWidth as needed
-				//finally add active shape to children of this class
 				int option = tool.getOption();
-				activeShape = new PolyShape(option);
-				activeShape.setStroke(Color.BLACK);
+				activeShape = new PolyShape( option);
+				activeShape.setStroke( Color.BLACK);
 				activeShape.setStrokeWidth(2.5);
-				activeShape.setFill(Color.RED);
-				children.add(activeShape);
+				activeShape.setFill( Color.RED);
+				children.add( activeShape);
 				
 				break;
 			default:
@@ -80,11 +77,9 @@ public class MapArea extends Pane {
 				break;
 			case ROOM:
 				//redraw the active shape if it is not null
-				if(activeShape == null) {
-				} else {
-					activeShape.reDraw(x1, y1, x2, y2, symmetrical);
+				if ( activeShape != null) {
+					redraw( activeShape);
 				}
-					//else ( redraw activeShape);
 				break;
 			default:
 				throw new UnsupportedOperationException( "Drag for Tool \"" + activeTool().name() + "\" is not implemneted");
