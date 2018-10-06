@@ -45,16 +45,21 @@ public class MapArea extends Pane {
 		startY = e.getY();
 		switch( activeTool()){
 			case DOOR:
+				break;
 			case MOVE:
+				break;
 			case PATH:
+				break;
 			case SELECTION:
+				break;
 			case ERASE:
+				break;
 			case ROOM:
 				int option = tool.getOption();
 				activeShape = new PolyShape( option);
 				activeShape.setStroke( Color.BLACK);
 				activeShape.setStrokeWidth(2.5);
-				activeShape.setFill( Color.RED);
+				activeShape.setFill( Color.AQUAMARINE);
 				children.add( activeShape);
 				
 				break;
@@ -78,7 +83,7 @@ public class MapArea extends Pane {
 			case ROOM:
 				//redraw the active shape if it is not null
 				if ( activeShape != null) {
-					redraw( activeShape);
+					activeShape.reDraw(e.getX(), e.getY(), ((startX + startY) - (e.getX()+e.getY())));
 				}
 				break;
 			default:

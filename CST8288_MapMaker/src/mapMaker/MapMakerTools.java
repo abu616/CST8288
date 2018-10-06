@@ -43,10 +43,22 @@ public class MapMakerTools  extends ToolBar{
 				ToolState.getState().setTool(Tools.ROOM);
 				ToolState.getState().setOption(2);
 			}),
-			createMenuItem( "Triangle", (e) -> {}),
-			createMenuItem( "Rectangle", (e) -> {}),
-			createMenuItem( "Pentagon", (e) -> {}),
-			createMenuItem( "Hexagon", (e) -> {}));
+			createMenuItem( "Triangle", (e) -> {
+				ToolState.getState().setTool(Tools.ROOM);
+				ToolState.getState().setOption(3);
+			}),
+			createMenuItem( "Rectangle", (e) -> {
+				ToolState.getState().setTool(Tools.ROOM);
+				ToolState.getState().setOption(4);
+			}),
+			createMenuItem( "Pentagon", (e) -> {
+				ToolState.getState().setTool(Tools.ROOM);
+				ToolState.getState().setOption(5);
+			}),
+			createMenuItem( "Hexagon", (e) -> {
+				ToolState.getState().setTool(Tools.ROOM);
+				ToolState.getState().setOption(6);
+			}));
 		return menuButton;
 	}
 

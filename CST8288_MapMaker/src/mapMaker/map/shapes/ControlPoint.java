@@ -10,7 +10,7 @@ public class ControlPoint extends Circle {
 		super(x, y, 5, Color.BLACK);
 	}
 
-	public void addChangeListener( ChangeListener x, ChangeListener y){
+	public void addChangeListener( ChangeListener<Number> x, ChangeListener<Number> y){
 		centerXProperty().addListener( x);
 		centerYProperty().addListener( y);
 	}
