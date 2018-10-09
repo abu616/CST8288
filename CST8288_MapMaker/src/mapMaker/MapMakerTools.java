@@ -15,10 +15,10 @@ public class MapMakerTools  extends ToolBar{
 	public MapMakerTools() {
 		super.getItems().addAll(
 				getButton( "Select", (e) -> {}),
-				getButton( "Move", (e) -> {}),
+				getButton( "Move", (e) -> ToolState.getState().setTool(Tools.MOVE)),
 				getMenuButton( "Room", (e) -> {}),
 				getButton( "Path", (e) -> {}),
-				getButton( "Erase", (e) -> {}),
+				getButton( "Erase", (e) -> ToolState.getState().setTool(Tools.ERASE)),
 				getButton( "Door", (e) -> {}));
 	}
 	

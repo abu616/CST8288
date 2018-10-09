@@ -15,19 +15,19 @@ public class PolyShape extends Polygon{
 
 	private int sides;
 
-	private final ObservableList< Double> POLY_POINTS;
+	private final ObservableList< Double> pPoints;
 	private ControlPoint[] cPoints;
 
 	public PolyShape( int sides){
 		super();
-		POLY_POINTS = getPoints();
 		this.sides = sides;
+		pPoints = getPoints();
 	}
 
 	private void calculatePoints( double x, double y, double radius){
 		final double shift = radianShift( sides);
 		for( int side = 0; side < sides; side++){
-			POLY_POINTS.addAll( point( Math::cos, radius, shift, side, sides) + x
+			pPoints.addAll( point( Math::cos, radius, shift, side, sides) + x
 					, point( Math::sin, radius, shift, side, sides) + y);
 		}
 	}
@@ -41,12 +41,12 @@ public class PolyShape extends Polygon{
 	}
 
 	public void registerControlPoints(){
-		cPoints = new ControlPoint[ POLY_POINTS.size() / 2];
-		for ( int i = 0; i < POLY_POINTS.size(); i+=2) {
+		cPoints = new ControlPoint[ pPoints.size() / 2];
+		for ( int i = 0; i < pPoints.size(); i+=2) {
 			final int j = i;
-			cPoints[ i / 2] = new ControlPoint( POLY_POINTS.get( i), POLY_POINTS.get( i + 1));
-			cPoints[ i / 2].addChangeListener((value, oldV, newV) -> POLY_POINTS.set( j, newV.doubleValue()),
-											  (value, oldV, newV) -> POLY_POINTS.set( j + 1, newV.doubleValue()));
+			cPoints[ i / 2] = new ControlPoint( pPoints.get( i), pPoints.get( i + 1));
+			cPoints[ i / 2].addChangeListener((value, oldV, newV) -> pPoints.set( j, newV.doubleValue()),
+											  (value, oldV, newV) -> pPoints.set( j + 1, newV.doubleValue()));
 		};
 	}
 
@@ -63,7 +63,7 @@ public class PolyShape extends Polygon{
 	 */
 	public void reDraw( double x1, double y1, double radius){	
 		//clear your points then calculate the points again
-		POLY_POINTS.clear();
+		pPoints.clear();
 		calculatePoints( x1, y1, radius);
 	}
 	

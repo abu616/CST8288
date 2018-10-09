@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import mapMaker.map.shapes.PolyShape;
+import mapMaker.map.shapes.SelectionArea;
 
 public class MapArea extends Pane {
 
@@ -51,8 +52,13 @@ public class MapArea extends Pane {
 			case PATH:
 				break;
 			case SELECTION:
+				new SelectionArea().start(e.getSceneX(), e.getSceneY());
 				break;
 			case ERASE:
+				if ( e.getTarget() instanceof PolyShape) {
+					children.remove(e.getTarget());
+					children.removeAll(((PolyShape) e.getTarget()).getControlPoints());
+				}
 				break;
 			case ROOM:
 				int option = tool.getOption();
@@ -61,7 +67,6 @@ public class MapArea extends Pane {
 				activeShape.setStrokeWidth(2.5);
 				activeShape.setFill( Color.AQUAMARINE);
 				children.add( activeShape);
-				
 				break;
 			default:
 				throw new UnsupportedOperationException( "Cursor for Tool \"" + activeTool().name() + "\" is not implemneted");
@@ -76,14 +81,20 @@ public class MapArea extends Pane {
 			case ERASE:
 			case SELECTION:
 			case MOVE:
-				//start only needs to be updated for move , what we discussed in class we with out the need of PolyShape
-				startX = e.getX();
-				startY = e.getY();
+				if ( e.getTarget() instanceof PolyShape) {
+					activeShape = (PolyShape) e.getTarget();
+					activeShape.translate(e.getX()-startX, e.getY()-startY);
+					startX = e.getX();
+					startY = e.getY();
+				}
 				break;
 			case ROOM:
 				//redraw the active shape if it is not null
 				if ( activeShape != null) {
-					activeShape.reDraw(e.getX(), e.getY(), ((startX + startY) - (e.getX()+e.getY())));
+					double endX = e.getX();
+					double endY = e.getY();
+					
+					activeShape.reDraw(startX, startY, distance(startX, startY, endX, endY));
 				}
 				break;
 			default:
@@ -99,7 +110,12 @@ public class MapArea extends Pane {
 			case PATH:
 			case SELECTION:
 			case ERASE:
+				break;
 			case ROOM:
+				activeShape.registerControlPoints();
+				if( activeShape != null) {
+					children.addAll(activeShape.getControlPoints());
+				}
 				break;
 			default:
 				throw new UnsupportedOperationException( "Release for Tool \"" + activeTool().name() + "\" is not implemneted");
