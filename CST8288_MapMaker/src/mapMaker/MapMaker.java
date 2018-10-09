@@ -1,6 +1,8 @@
 package mapMaker;
 
 import java.io.File;
+import java.util.regex.Pattern;
+
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
@@ -11,7 +13,7 @@ import javafx.stage.Stage;
 import mapMaker.map.MapArea;
 
 public class MapMaker extends Application{
-
+	
 	@Override
 	public void init() throws Exception {
 		super.init();

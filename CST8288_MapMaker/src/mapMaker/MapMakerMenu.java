@@ -1,6 +1,6 @@
 package mapMaker;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,8 +13,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 public class MapMakerMenu extends MenuBar {
 
@@ -31,7 +29,7 @@ public class MapMakerMenu extends MenuBar {
 		fileMenu.getItems().addAll(
 						getMenuItem( "New", (e) -> {}),
 						getMenuItem( "Save", (e) -> {}),
-						getMenuItem( "Open-archive", (e) -> {} ), //loadMapFile()),
+						getMenuItem( "Open", (e) -> {}),
 						new SeparatorMenuItem(),
 						getMenuItem( "Exit", (e) -> Platform.exit()));
 		return fileMenu;
@@ -66,24 +64,6 @@ public class MapMakerMenu extends MenuBar {
 	
 	private String loadFile( String path) {
 		String message = "";
-		try {
-			message = Files.lines( Paths.get(path)).reduce("", (a,b)->a+System.lineSeparator()+b+System.lineSeparator());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return message;
-	}
-	
-	
-	// TODO functionality non-existent
-	private String loadMapFile( String path) {
-		String message = "";
-		FileChooser mapFileChooser = new FileChooser();
-		mapFileChooser.setTitle("Open archive");
-		mapFileChooser.getExtensionFilters().add(
-				new ExtensionFilter("Map Files","*.map"));
-		
-		
 		try {
 			message = Files.lines( Paths.get(path)).reduce("", (a,b)->a+System.lineSeparator()+b+System.lineSeparator());
 		} catch (IOException e) {

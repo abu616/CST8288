@@ -1,29 +1,20 @@
 package mapMaker.map;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import mapMaker.map.shapes.PolyShape;
 
 public class MapArea extends Pane {
 
-	/**
-	 * instead of calling getChildren every time you can call directly the reference of it which is initialized in constructor
-	 */
 	private ObservableList<Node> children;
-	/**
-	 * active shape that is currently being manipulated
-	 */
 	private PolyShape activeShape;
-	/**
-	 * last location of the mouse
-	 */
 	private double startX, startY;
-	/**
-	 * Reference to ToolSate so you don't have to call ToolSate.getState() every time.
-	 */
 	private ToolState tool;
 
 	public MapArea(){
@@ -55,13 +46,16 @@ public class MapArea extends Pane {
 			case ERASE:
 				break;
 			case ROOM:
+				activeShape = new PolyShape( tool.getOption());
+				children.add( activeShape);
+				/*
 				int option = tool.getOption();
 				activeShape = new PolyShape( option);
 				activeShape.setStroke( Color.BLACK);
 				activeShape.setStrokeWidth(2.5);
 				activeShape.setFill( Color.AQUAMARINE);
 				children.add( activeShape);
-				
+				*/
 				break;
 			default:
 				throw new UnsupportedOperationException( "Cursor for Tool \"" + activeTool().name() + "\" is not implemneted");
@@ -72,11 +66,14 @@ public class MapArea extends Pane {
 		e.consume();
 		switch( activeTool()){
 			case DOOR:
+				break;
 			case PATH:
+				break;
 			case ERASE:
+				break;
 			case SELECTION:
+				break;
 			case MOVE:
-				//start only needs to be updated for move , what we discussed in class we with out the need of PolyShape
 				startX = e.getX();
 				startY = e.getY();
 				break;
@@ -113,6 +110,45 @@ public class MapArea extends Pane {
 
 	private Tools activeTool(){
 		return tool.getTool();
+	}
+	
+	public String convertToString(){
+		//for each node in children
+		return children.stream()
+				//filter out any node that is not PolyShape
+				.filter( PolyShape.class::isInstance)
+				//cast filtered nodes to PolyShapes
+				.map( PolyShape.class::cast)
+				//convert each shape to a string format
+				.map( PolyShape::convertToString)
+				//join all string formats together using new line
+				.collect( Collectors.joining( System.lineSeparator()));
+	}
+	/**
+	 * <p>
+	 * create all shapes that are stored in given map. each key contains one list representing on PolyShape.</br>
+	 * </p>
+	 * @param map - a data set which contains all shapes in this object.
+	 */
+	public void convertFromString( Map< Object, List< String>> map){
+		//for each key inside of map
+		map.keySet().stream()
+		//create a new PolyShape with given list in map
+		.map( k->new PolyShape( map.get( k)))
+		//for each created PolyShape
+		.forEach( s->{
+			children.add( s);
+			children.addAll( s.getControlPoints());
+		});;
+	}
+	
+	/**
+	 * <p>
+	 * call this function to clear all shapes in {@link MapAreaSkeleton}.</br>
+	 * </p>
+	 */
+	public void clearMap(){
+		children.clear();
 	}
 }
 
