@@ -14,12 +14,12 @@ public class MapMakerTools  extends ToolBar{
 	
 	public MapMakerTools() {
 		super.getItems().addAll(
-				getButton( "Select", (e) -> {}),
+				getButton( "Select", (e) -> ToolState.getState().setTool(Tools.SELECTION)),
 				getButton( "Move", (e) -> ToolState.getState().setTool(Tools.MOVE)),
 				getMenuButton( "Room", (e) -> {}),
-				getButton( "Path", (e) -> {}),
+				getButton( "Path", (e) -> ToolState.getState().setTool(Tools.PATH)),
 				getButton( "Erase", (e) -> ToolState.getState().setTool(Tools.ERASE)),
-				getButton( "Door", (e) -> {}));
+				getButton( "Door", (e) -> ToolState.getState().setTool(Tools.DOOR)));
 	}
 	
 	public Button getButton( String name, EventHandler<ActionEvent> handler) {
@@ -27,7 +27,7 @@ public class MapMakerTools  extends ToolBar{
 		icon.setId( name + "-icon");
 		Button button = new Button(name, icon);
 		button.setId( name);
-		button.setText("");
+		button.setText( "");
 		button.setOnAction( handler);
 		return button;
 	}
