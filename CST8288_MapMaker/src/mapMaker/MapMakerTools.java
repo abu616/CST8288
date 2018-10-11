@@ -11,6 +11,7 @@ import mapMaker.map.ToolState;
 import mapMaker.map.Tools;
 
 public class MapMakerTools  extends ToolBar{
+
 	
 	public MapMakerTools() {
 		super.getItems().addAll(
