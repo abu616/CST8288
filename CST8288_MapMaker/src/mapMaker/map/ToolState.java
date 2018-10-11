@@ -3,7 +3,7 @@ package mapMaker.map;
 public class ToolState {
 
 	private static final ToolState STATE = new ToolState();
-	private Tools tool = Tools.SELECTION;
+	private Tools tool = getTool();
 	int option = 0;
 	
 	private ToolState() {}

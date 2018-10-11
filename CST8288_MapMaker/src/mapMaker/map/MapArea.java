@@ -1,5 +1,9 @@
 package mapMaker.map;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -10,21 +14,9 @@ import mapMaker.map.shapes.SelectionArea;
 
 public class MapArea extends Pane {
 
-	/**
-	 * instead of calling getChildren every time you can call directly the reference of it which is initialized in constructor
-	 */
-	private ObservableList<Node> children;
-	/**
-	 * active shape that is currently being manipulated
-	 */
+	private ObservableList< Node> children;
 	private PolyShape activeShape;
-	/**
-	 * last location of the mouse
-	 */
 	private double startX, startY;
-	/**
-	 * Reference to ToolSate so you don't have to call ToolSate.getState() every time.
-	 */
 	private ToolState tool;
 
 	public MapArea(){
@@ -51,7 +43,7 @@ public class MapArea extends Pane {
 				break;
 			case PATH:
 				break;
-			case SELECTION:
+			case SELECT:
 				new SelectionArea().start(e.getSceneX(), e.getSceneY());
 				break;
 			case ERASE:
@@ -79,7 +71,7 @@ public class MapArea extends Pane {
 			case DOOR:
 			case PATH:
 			case ERASE:
-			case SELECTION:
+			case SELECT:
 			case MOVE:
 				if ( e.getTarget() instanceof PolyShape) {
 					activeShape = (PolyShape) e.getTarget();
@@ -89,13 +81,7 @@ public class MapArea extends Pane {
 				}
 				break;
 			case ROOM:
-				//redraw the active shape if it is not null
-				if ( activeShape != null) {
-					double endX = e.getX();
-					double endY = e.getY();
-					
-					activeShape.reDraw(startX, startY, distance(startX, startY, endX, endY));
-				}
+				activeShape.reDraw( startX, startY, e.getX(), e.getY(), true);
 				break;
 			default:
 				throw new UnsupportedOperationException( "Drag for Tool \"" + activeTool().name() + "\" is not implemneted");
@@ -108,7 +94,7 @@ public class MapArea extends Pane {
 			case DOOR:
 			case MOVE:
 			case PATH:
-			case SELECTION:
+			case SELECT:
 			case ERASE:
 				break;
 			case ROOM:
@@ -122,13 +108,30 @@ public class MapArea extends Pane {
 		}
 		activeShape = null;
 	}
-	
-	private double distance ( double x1, double y1, double x2, double y2){
-	    return Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
-	}
 
 	private Tools activeTool(){
 		return tool.getTool();
+	}
+	
+	public String convertToString(){
+		return children.stream()
+				.filter( PolyShape.class::isInstance)
+				.map( PolyShape.class::cast)
+				.map( PolyShape::convertToString)
+				.collect( Collectors.joining( System.lineSeparator()));
+	}
+	
+	public void convertFromString( Map< Object, List< String>> map){
+		map.keySet().stream()
+		.map( k->new PolyShape( map.get( k)))
+		.forEach( s->{
+			children.add( s);
+			children.addAll( s.getControlPoints());
+		});;
+	}
+	
+	public void clearMap(){
+		children.clear();
 	}
 }
 

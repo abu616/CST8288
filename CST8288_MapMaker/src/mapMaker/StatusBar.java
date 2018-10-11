@@ -2,22 +2,15 @@ package mapMaker;
 
 import javafx.scene.control.ToolBar;
 import javafx.scene.text.Text;
+import mapMaker.map.ToolState;
 
 public class StatusBar extends ToolBar{
 	
 	private Text toolSelected;
 
 	public StatusBar() {
-		this.toolSelected = new Text("Tool: ");
-		super.getItems().add(toolSelected);
-	}
-
-	public Text getToolSelected() {
-		return toolSelected;
-	}
-
-	public void setToolSelected(Text toolSelected) {
-		this.toolSelected = toolSelected;
+		this.toolSelected = new Text("Tool: " + ToolState.getState().getTool());
+		super.getItems().add( toolSelected);
 	}
 	
 }

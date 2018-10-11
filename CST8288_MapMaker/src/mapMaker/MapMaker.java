@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import mapMaker.map.MapArea;
 
 public class MapMaker extends Application{
-
+	
 	@Override
 	public void init() throws Exception {
 		super.init();
@@ -47,7 +47,7 @@ public class MapMaker extends Application{
 	public void stop() throws Exception {
 		super.stop();
 	}
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

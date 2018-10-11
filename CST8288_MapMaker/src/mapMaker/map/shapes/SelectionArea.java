@@ -14,7 +14,7 @@ public class SelectionArea extends Rectangle{
 	
 	public SelectionArea() {
 		super();
-		setOpacity( 0.4);
+		setOpacity( .4);
 		setStrokeWidth( 2);
 		setStroke( Color.GREY);
 		setFill( Color.LIGHTGRAY);

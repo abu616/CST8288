@@ -5,7 +5,7 @@ public enum Tools {
 	DOOR,
 	MOVE,
 	PATH,
-	SELECTION,
+	SELECT,
 	ERASE, 
 	ROOM;
 
