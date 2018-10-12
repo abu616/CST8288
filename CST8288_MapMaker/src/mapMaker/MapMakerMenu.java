@@ -45,9 +45,9 @@ public class MapMakerMenu extends MenuBar {
 	private Menu getFileMenu() {
 		Menu fileMenu = new Menu( "File");
 		fileMenu.getItems().addAll(
-						getMenuItem( "New", (e) -> {}),
+						getMenuItem( "New", (e) -> {} ),
 						getMenuItem( "Save", (e) -> saveMap( null)),
-						getMenuItem( "Open-archive", (e) -> showInputDialog(currentSkinClassName, currentSkinClassName, currentSkinClassName, null ) ), 
+						getMenuItem( "Open-archive", (e) -> {} ), 
 						new SeparatorMenuItem(),
 						getMenuItem( "Exit", (e) -> Platform.exit()));
 		return fileMenu;
@@ -74,9 +74,9 @@ public class MapMakerMenu extends MenuBar {
 	
 	private void displayAlert( String title, String message) {
 		Alert alert = new Alert( Alert.AlertType.INFORMATION);
-		alert.setTitle(title);
-		alert.setHeaderText("Map Maker");
-		alert.setContentText(message);
+		alert.setTitle( title);
+		alert.setHeaderText( "Map Maker");
+		alert.setContentText( message);
 		alert.show();
 	}
 	
@@ -84,7 +84,7 @@ public class MapMakerMenu extends MenuBar {
 		String message = "";
 		try {
 			message = Files.lines( Paths.get(path)).reduce("", (a,b)->a+System.lineSeparator()+b+System.lineSeparator());
-		} catch (IOException e) {
+		} catch ( IOException e) {
 			e.printStackTrace();
 		}
 		return message;
@@ -92,7 +92,7 @@ public class MapMakerMenu extends MenuBar {
 	
 	private void saveMap( Stage primary){
 		File file = getFileChooser( primary, true);
-		if (file==null)
+		if ( file==null)
 			return;
 		try{
 			if( !file.exists())
@@ -106,7 +106,7 @@ public class MapMakerMenu extends MenuBar {
 	private void loadMap( Stage primary){
 		//get the file object to load from
 		File file = getFileChooser( primary, false);
-		if (file==null || !file.exists())
+		if ( file==null || !file.exists())
 			return;
 		try{
 			AtomicInteger index = new AtomicInteger(0);  
