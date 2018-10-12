@@ -47,11 +47,15 @@ public class MapMakerMenu extends MenuBar {
 		fileMenu.getItems().addAll(
 						getMenuItem( "New", (e) -> {} ),
 						getMenuItem( "Save", (e) -> saveMap( null)),
+<<<<<<< HEAD
 						getMenuItem( "Open-archive", (e) -> {} ), 
+=======
+						getMenuItem( "Open", (e) -> {} ), 
+>>>>>>> aa750cf6932470fbfd6e9edfb799ff4d25902c86
 						new SeparatorMenuItem(),
 						getMenuItem( "Exit", (e) -> Platform.exit()));
 		return fileMenu;
-		}
+	}
 	
 	private Menu getHelpMenu() {
 		Menu helpMenu = new Menu( "Help");
@@ -128,8 +132,8 @@ public class MapMakerMenu extends MenuBar {
 		input.setTitle( title);
 		input.setHeaderText( null);
 		input.setContentText( content);
-		input.getEditor().textProperty().addListener( (value, oldV, newV)->{
-			if(!newV.isEmpty() && !Pattern.matches( match, newV)){
+		input.getEditor().textProperty().addListener( ( value, oldV, newV)->{
+			if( !newV.isEmpty() && !Pattern.matches( match, newV)){
 				input.getEditor().setText( oldV);
 			}
 		});
